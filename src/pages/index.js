@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Header } from "@/pages/components/Header"
+
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
