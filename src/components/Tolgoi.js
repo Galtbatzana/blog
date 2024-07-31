@@ -1,12 +1,13 @@
+import Link from "next/link";
+
 export function Tolgoi() {
   return (
-    <div className="">
-        <div className="flex justify-between my-20 w-[1000px]">
-            <div> <img src="/images/Logo.png" className="ml-10 bg-white" /></div>
-            <div>   <Navigations /></div>
-            <div>  <input type="text" className="" placeholder="Search" /></div>
-        </div>
-
+    <div className="container mx-auto bg-white ">
+      <div className="flex justify-around items-center py-9">
+        <img src="/images/Logo.png" className="h-[36px]" />
+        <Navigations />
+        <input type="text" className="bg-slate-200" placeholder="Search" />
+      </div>
     </div>
   );
 }
@@ -28,11 +29,11 @@ const navigations = [
 
 export function Navigations() {
   return (
-    <div className="flex gap-6">
+    <div className="flex gap-6 text-[#3B3C4A] font-medium">
       {navigations.map((nav) => (
-        <div key={nav.link} href={nav.link}>
+        <Link key={nav.link} href={nav.link}>
           {nav.name}
-        </div>
+        </Link>
       ))}
     </div>
   );
