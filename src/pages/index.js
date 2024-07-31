@@ -5,6 +5,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { Footer } from "../components/footer";
 import Link from "next/link";
 import { Tolgoi } from "../components/Tolgoi";
+import { Trending } from "@/components/Trending";
 
 dayjs.extend(relativeTime);
 
@@ -48,8 +49,9 @@ export default function Home() {
   return (
     <main>
       <Tolgoi />
+      <Trending />
       <div className="container mx-auto">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {articles.map((item) => (
             <div key={item.id} className="card bg-base-100 shadow-lg">
               <div className="card-body bg-slate-50 text-[#181A2A]">
