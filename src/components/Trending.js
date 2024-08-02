@@ -17,10 +17,10 @@ export function Trending() {
   }, []);
 
   return (
-    <div className="container mx-auto flex flex-col items-center">
-      <div className="carousel w-96 md:w-[750px] lg:w-[900px] gap-6 rounded-lg bg-black">
+    <div className="container mx-auto flex flex-col items-center bg-yellow">
+      <div className="carousel w-80 p-8 md:w-[750px] lg:w-[900px] gap-6 rounded-lg bg-green-300">
         {articles.map((item) => (
-          <div key={item.id} className="carousel-item relative">
+          <div key={item.id} className="carousel-item relative rounded-lg">
             <Link href={item.path}>
               <Image src={item.social_image} width={200} height={200} className="w-full size-60"/>
             </Link>

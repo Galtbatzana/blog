@@ -6,6 +6,7 @@ import { Footer } from "../components/footer";
 import Link from "next/link";
 import { Tolgoi } from "../components/Tolgoi";
 import { Trending } from "@/components/Trending";
+import { SpecialNews } from "@/components/SpecialNews";
 
 dayjs.extend(relativeTime);
 
@@ -49,6 +50,11 @@ export default function Home() {
   return (
     <main>
       <Tolgoi />
+      <SpecialNews/>
+
+      <div className="container mx-auto text-black p-8 bg-white font-bold">
+        <h2>Trendig</h2>
+      </div>
       <Trending />
       <div className="container mx-auto">
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
