@@ -1,18 +1,18 @@
+
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { Footer } from "../components/footer";
 import Link from "next/link";
-import { Tolgoi } from "../components/Tolgoi";
 import { Trending } from "@/components/Trending";
-import { SpecialNews } from "@/components/SpecialNews";
+
 
 dayjs.extend(relativeTime);
 
 const pageSize = 12;
 
-export default function Home() {
+export default function Blog() {
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(0);
   const [ended, setEnded] = useState(false);
@@ -28,13 +28,7 @@ export default function Home() {
     loadMore();
   }, []);
 
-  const tags = [
-    {value: "beginner", name:"Анхан шат"},
-    {value: "frontend", name:"Front-end"},
-    {value: "javascript", name:"JavaScript"},
-    {value: "webdev", name: "Web Dev"},
-];
-
+  // console.log({ articles });
 
   function loadMore() {
     fetch(
@@ -55,13 +49,7 @@ export default function Home() {
 
   return (
     <main>
-      <Tolgoi />
-      <SpecialNews/>
-
-      <div className="container mx-auto text-black p-8 bg-white font-bold">
-        <h2>Trendig</h2>
-      </div>
-      <Trending />
+     
       <div className="container mx-auto">
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {articles.map((item) => (
@@ -94,16 +82,7 @@ export default function Home() {
           </div>
         )}
       </div>
-
-      <div>
-        {tags.map((tags) => (
-          <div key={tags.value} className="flex p-4 ">
-            {tags.value}
-          </div>
-        ))}
-
-      </div>
-      <Footer />
+      
     </main>
   );
 }
