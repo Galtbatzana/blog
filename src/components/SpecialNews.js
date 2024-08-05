@@ -8,7 +8,7 @@ export function SpecialNews() {
   const [articles, setArticles] = useState();
 
   useEffect(() => {
-     fetch("https://dev.to/api/articles?username=ben")
+     fetch("https://dev.to/api/articles?username=paul_freeman")
       .then((response) => {
         return response.json();
       })

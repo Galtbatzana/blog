@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Tolgoi } from "../components/Tolgoi";
 import { Trending } from "@/components/Trending";
 import { SpecialNews } from "@/components/SpecialNews";
-
+import {setSelectedCategory} from "react"
 dayjs.extend(relativeTime);
 
 const pageSize = 12;
@@ -16,9 +16,10 @@ export default function Home() {
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(0);
   const [ended, setEnded] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState();
 
   useEffect(() => {
-    // fetch("https://dev.to/api/articles?username=ben&per_page=6")
+    // fetch("https://dev.to/api/articles?username=paul_freeman&per_page=6")
     //   .then((response) => {
     //     return response.json();
     //   })
@@ -29,16 +30,20 @@ export default function Home() {
   }, []);
 
   const tags = [
-    {value: "beginner", name:"Анхан шат"},
-    {value: "frontend", name:"Front-end"},
-    {value: "javascript", name:"JavaScript"},
-    {value: "webdev", name: "Web Dev"},
+    {value: "All", name:""},
+    {value: "Frontend", name:"Front-end"},
+    {value: "Javascript", name:"JavaScript"},
+    {value: "Webdev", name: "Web Dev"},
+    {value: "Reactnative", name: "React"},
+    {value: "Opensource", name: "OpenSource"},
+    {value: "Deginners", name: "Discuss"},
+    
 ];
 
 
   function loadMore() {
     fetch(
-      `https://dev.to/api/articles?username=ben&page=${page}&per_page=${pageSize}`
+      `https://dev.to/api/articles?username=paul_freeman&page=${page}&per_page=${pageSize}`
     )
       .then((response) => {
         return response.json();
@@ -95,14 +100,17 @@ export default function Home() {
         )}
       </div>
 
-      <div>
-        {tags.map((tags) => (
-          <div key={tags.value} className="flex p-4 ">
-            {tags.value}
+    <div className="">
+      <div className="flex gap-6 justify-center">
+        {tags.map((item) => (
+          <div key={item.value} className={`cursor-pointer hover:text-orange-500 ${selectedCategory === tags.value ? "hover:text-orange-600": ""}`} onClick={()=>(setSelectedCategy(tags.value))}>
+            {item.value}
           </div>
         ))}
 
-      </div>
+    </div>
+      
+      </div>  
       <Footer />
     </main>
   );
