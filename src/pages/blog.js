@@ -1,11 +1,9 @@
 
-
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Link from "next/link";
-import { Trending } from "@/components/Trending";
 
 
 dayjs.extend(relativeTime);

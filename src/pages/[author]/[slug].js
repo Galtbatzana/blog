@@ -34,7 +34,7 @@ export default function Page () {
 
     return (
         <div className="container mx-auto">
-            <div>{article.title}</div>
+            <div className="font-bold">{article.title}</div>
             <div className="prose">{parse(article.body_html)}</div>
             <div>{article.body_markdown}</div>
         </div>

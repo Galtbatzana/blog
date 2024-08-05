@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Tolgoi } from "../components/Tolgoi";
 import { Trending } from "@/components/Trending";
 import { SpecialNews } from "@/components/SpecialNews";
-
+import { Card } from "@/components/Card";
 dayjs.extend(relativeTime);
 
 const pageSize = 12;
@@ -60,23 +60,39 @@ export default function Home() {
 
   return (
     <main>
-      <Tolgoi />
+      
       <SpecialNews/>
 
       <div className="container mx-auto text-black p-8 bg-white font-bold">
         <h2>Trendig</h2>
       </div>
-      <Trending />
+      <Card/>
+
+      <div className="container mx-auto p-6 bg-white text-[#181A2A]">
+        <h1 className="py-6 font-bold text-[24px]">All Blog Post</h1>
+        <div className="flex gap-6 font-bold">
+          {tags.map((item) => (
+            <div key={item.value} className={`cursor-pointer hover:text-orange-500 ${selectedCategory === tags.value ? "hover:text-orange-600": ""}`} onClick={()=>(setSelectedCategory(tags.value))}>
+            {item.value}
+          </div>
+          ))}
+        </div>
+      </div>  
+
       <div className="container mx-auto">
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {articles.map((item) => (
             <div key={item.id} className="card bg-base-100 shadow-lg">
+
               <div className="card-body bg-slate-50 text-[#181A2A]">
+
                 <Image src={item.social_image} width={500} height={500} />
                 <Link href={item.path}>{item.title}</Link>
+
                 <div className="badge bg-slate-200 text-[#4B6BFB]">
                   {item.tag_list[0]}
                 </div>
+
                 <div className="flex gap-4 items-center">
                   <Image
                     src={item.user.profile_image}
@@ -88,30 +104,21 @@ export default function Home() {
                   <div>{dayjs(item.published_at).format("MMM/DD/YYYY")}</div>
                   <div>{dayjs(item.published_at).fromNow()}</div>
                 </div>
+
               </div>
             </div>
           ))}
         </div>
+      </div>
 
         {!ended && (
           <div className="py-16 text-center" onClick={loadMore}>
             <button className="btn btn-lg bg">Load more</button>
           </div>
         )}
-      </div>
-
-    <div className="">
-      <div className="flex gap-6 justify-center">
-        {tags.map((item) => (
-          <div key={item.value} className={`cursor-pointer hover:text-orange-500 ${selectedCategory === tags.value ? "hover:text-orange-600": ""}`} onClick={()=>(setSelectedCategy(tags.value))}>
-            {item.value}
-          </div>
-        ))}
-
-    </div>
-      
-      </div>  
-      <Footer />
+ 
     </main>
   );
 }
+
+
