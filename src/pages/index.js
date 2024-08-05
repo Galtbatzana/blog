@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Tolgoi } from "../components/Tolgoi";
 import { Trending } from "@/components/Trending";
 import { SpecialNews } from "@/components/SpecialNews";
-import {setSelectedCategory} from "react"
+
 dayjs.extend(relativeTime);
 
 const pageSize = 12;
