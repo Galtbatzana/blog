@@ -8,6 +8,8 @@ import { Tolgoi } from "../components/Tolgoi";
 import { Trending } from "@/components/Trending";
 import { SpecialNews } from "@/components/SpecialNews";
 import { Card } from "@/components/Card";
+import { ArticleCard } from "@/components/ArticleCard";
+
 dayjs.extend(relativeTime);
 
 const pageSize = 12;
@@ -66,7 +68,7 @@ export default function Home() {
       <div className="container mx-auto text-black p-8 bg-white font-bold">
         <h2>Trendig</h2>
       </div>
-      <Card/>
+      <ArticleCard/>
 
       <div className="container mx-auto p-6 bg-white text-[#181A2A]">
         <h1 className="py-6 font-bold text-[24px]">All Blog Post</h1>

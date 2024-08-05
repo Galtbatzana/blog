@@ -14,7 +14,7 @@ export function Card() {
       });
   }, []);
 
-  // console.log(articles);
+  
 
   return (
     <div>{articles?.map((article) => console.log("article", article))}</div>
