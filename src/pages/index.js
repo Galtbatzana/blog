@@ -8,6 +8,7 @@ import { Tolgoi } from "../components/Tolgoi";
 import { Trending } from "@/components/Trending";
 import { SpecialNews } from "@/components/SpecialNews";
 import { ArticleCard } from "@/components/ArticleCard";
+import { Carousel } from "@/components/Carousel";
 
 export default function Home() {
   
@@ -57,10 +58,14 @@ export default function Home() {
     }, [selectedCategory]);
 
 
-
-          
+      
   return (
     <main>
+      
+        <Carousel />
+      
+    <div className="container mx-auto">
+
       <div className="flex gap-3">
         {tags.map((tag)=>(
           <div key={tag.value} className={`cursor-pointer font-bold hover: ${selectedCategory === tag.value ? "text-orange-400" : ""}`} onClick={()=>setSelectedCategory(tag.value)}>{tag.name}</div>
@@ -70,7 +75,9 @@ export default function Home() {
           {articles.map((item) => (
          <ArticleCard key={item.id} article={item} />
           ))}
-        </div>
+      </div>
+
+    </div>
 
         {!ended && (
         <div className="py-16 text-center">

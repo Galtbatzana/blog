@@ -14,7 +14,6 @@ export default function Blog() {
     loadMore();
   }, []);
 
-
   function loadMore() {
     fetch(
       `https://dev.to/api/articles?username=paul_freeman&page=${page+1}&per_page=${pageSize}`
