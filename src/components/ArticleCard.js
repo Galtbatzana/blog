@@ -2,7 +2,7 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Link from "next/link";
-import { useEffect } from "react";
+
 
 dayjs.extend(relativeTime);
 
