@@ -12,7 +12,7 @@ export function ArticleCard ({article}) {
         <div key={article.id} className="shadow-lg card bg-base-100">
             <div className="card-body">
                 <div className="flex gap-2">
-                    {article.tag_list.map((tag)=>(<div>{tag}</div>))}
+                    {article?.tag_list.map((tag)=>(<div>{tag}</div>))}
                     <Image src={article.social_image} width={500} height={500} className="bg-slate-600"/>   
                     <Link href={article.path}>{article.title}</Link>
                     <div>
