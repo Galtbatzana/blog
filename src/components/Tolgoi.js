@@ -7,7 +7,7 @@ export function Tolgoi() {
     <div className="container mx-auto bg-white flex justify-between items-center">
       <div className="flex justify-around items-center py-9 mx-4">
         <img src="/images/Logo.png" className="h-[36px]" />
-        <div className="hidden">
+        <div className="hidden md:block">
           <Navigations />
         </div>
       </div>

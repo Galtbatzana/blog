@@ -7,6 +7,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "media.dev.to",
       },
+      {
+        protocol: "https",
+        hostname: "dev.to",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      }
     ],
   },
 };

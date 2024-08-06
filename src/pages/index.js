@@ -1,126 +1,118 @@
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { Footer } from "../components/footer";
 import Link from "next/link";
+
 import { Tolgoi } from "../components/Tolgoi";
 import { Trending } from "@/components/Trending";
 import { SpecialNews } from "@/components/SpecialNews";
-import { Card } from "@/components/Card";
 import { ArticleCard } from "@/components/ArticleCard";
 
-dayjs.extend(relativeTime);
-
-const pageSize = 12;
-
 export default function Home() {
-  const [articles, setArticles] = useState([]);
-  const [page, setPage] = useState(0);
+  
+  const tags = [
+    { value: "All", name: "All" },
+    { value: "Frontend", name: "Front-end" },
+    { value: "Javascript", name: "JavaScript" },
+    { value: "Webdev", name: "Web Dev" },
+    { value: "Beginners", name: "Discuss" },
+  ];
   const [ended, setEnded] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState();
+  const [loading, setLoading] = useState(false);
+  const [articles, setArticles] = useState([]);
+  const [page, setPage] = useState(1);
+  // const [ended, setEnded] = useState(false);
+  
+  // const [tagArticles, setTagArticles]= useState();
+  
 
-  useEffect(() => {
-    // fetch("https://dev.to/api/articles?username=paul_freeman&per_page=6")
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     setArticles(data);
-    //   });
-    loadMore();
-  }, []);
+  async function loadInitialArticles() {
+    setLoading(true);
 
-  const tags = [
-    {value: "All", name:""},
-    {value: "Frontend", name:"Front-end"},
-    {value: "Javascript", name:"JavaScript"},
-    {value: "Webdev", name: "Web Dev"},
-    {value: "Reactnative", name: "React"},
-    {value: "Opensource", name: "OpenSource"},
-    {value: "Deginners", name: "Discuss"},
-    
-];
+    const response = await fetch(`https://dev.to/api/articles?username=paul_freeman&tag=${selectedCategory}&per_page=3`);
+    const tagArticles = await response.json();
+    setArticles(tagArticles);
+    setPage(1);
 
-
-  function loadMore() {
-    fetch(
-      `https://dev.to/api/articles?username=paul_freeman&page=${page}&per_page=${pageSize}`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((newArticles) => {
-        const updatedArticles = articles.concat(newArticles);
-        setArticles(updatedArticles);
-        setPage(page + 1);
-        if (newArticles.length < pageSize) {
-          setEnded(true);
-        }
-      });
+    setLoading(false);
   }
 
+  async function loadNextArticles() {
+      setLoading(true);
+
+      const nextPage = page + 1;
+      const response = await fetch(`https://dev.to/api/articles?username=paul_freeman&tag=${selectedCategory}&per_page=${nextPage}`);
+      const nextArticles = await response.json();
+
+      setArticles([...articles, ...nextArticles])
+      setPage(nextPage);
+
+      setLoading(false);
+    }
+
+    useEffect(() => {
+    loadInitialArticles; 
+    }, [selectedCategory]);
+
+
+
+          
   return (
     <main>
-      
-      <SpecialNews/>
-
-      <div className="container mx-auto text-black p-8 bg-white font-bold">
-        <h2>Trendig</h2>
+      <div className="flex gap-3">
+        {tags.map((tag)=>(
+          <div key={tag.value} className={`cursor-pointer font-bold hover: ${selectedCategory === tag.value ? "text-orange-400" : ""}`} onClick={()=>setSelectedCategory(tag.value)}>{tag.name}</div>
+        ))}
       </div>
-      <ArticleCard/>
-
-      <div className="container mx-auto p-6 bg-white text-[#181A2A]">
-        <h1 className="py-6 font-bold text-[24px]">All Blog Post</h1>
-        <div className="flex gap-6 font-bold">
-          {tags.map((item) => (
-            <div key={item.value} className={`cursor-pointer hover:text-orange-500 ${selectedCategory === tags.value ? "hover:text-orange-600": ""}`} onClick={()=>(setSelectedCategory(tags.value))}>
-            {item.value}
-          </div>
-          ))}
-        </div>
-      </div>  
-
-      <div className="container mx-auto">
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {articles.map((item) => (
-            <div key={item.id} className="card bg-base-100 shadow-lg">
-
-              <div className="card-body bg-slate-50 text-[#181A2A]">
-
-                <Image src={item.social_image} width={500} height={500} />
-                <Link href={item.path}>{item.title}</Link>
-
-                <div className="badge bg-slate-200 text-[#4B6BFB]">
-                  {item.tag_list[0]}
-                </div>
-
-                <div className="flex gap-4 items-center">
-                  <Image
-                    src={item.user.profile_image}
-                    width={50}
-                    height={50}
-                    className="rounded-full"
-                  />
-                  <div className="">{item.user.name}</div>
-                  <div>{dayjs(item.published_at).format("MMM/DD/YYYY")}</div>
-                  <div>{dayjs(item.published_at).fromNow()}</div>
-                </div>
-
-              </div>
-            </div>
+         <ArticleCard key={item.id} article={item} />
           ))}
         </div>
-      </div>
 
         {!ended && (
-          <div className="py-16 text-center" onClick={loadMore}>
-            <button className="btn btn-lg bg">Load more</button>
-          </div>
-        )}
- 
+        <div className="py-16 text-center">
+          <button disabled={loading} className="btn btn-lg bg-accent" onClick={loadNextArticles}>{loading && <span className="loading loading-spinner"></span>}
+          Load more 
+          </button>
+        </div>
+        
+      )} 
+    
     </main>
   );
 }
 
 
+{/* <div className="container mx-auto text-black p-8 bg-white font-bold">
+        <h2>Trendig</h2>
+      </div>
+      
+      <div className="container mx-auto p-6 bg-white text-[#181A2A] hidden md:block">
+        <h1 className="py-6 font-bold text-[24px]">All Blog Post</h1>
+        <div className="flex gap-6 font-bold">
+          {tags.map((tag) => (
+            <div key={tag.value} className={`cursor-pointer hover:text-orange-500 ${
+                selectedCategory === tags.value ? "hover:text-orange-600" : ""}`} onClick={() => setSelectedCategory(tags.value)}>
+              {tag.name}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="container mx-auto">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {articles.map((item) => (
+            <ArticleCard key={item.id} article={item} />
+          ))}
+        </div>
+      </div>
+      {!ended && (
+        <div className="py-16 text-center">
+          <button disabled={loading} className="btn btn-lg bg-accent" onClick={loadInitialArticles}>{loading && <span className="loading loading-spinner"></span>}
+          Load more 
+          </button>
+        </div>
+        
+      )} */}
