@@ -1,65 +1,59 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
-export function Carousel({article}) {
+dayjs.extend(relativeTime);
 
-console.log({article});
+export function Carousel() {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    fetch("https://dev.to/api/articles?username=paul_freeman")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setArticles(data);
+      });
+  }, []);
 
   return (
-    <div className="carousel w-full">
-  <div id="slide1" className="carousel-item relative w-full">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
-      className="w-full" />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide4" className="btn btn-circle">❮</a>
-      <a href="#slide2" className="btn btn-circle">❯</a>
+
+    <div className="container mx-auto hidden md:block">
+      <div className="carousel max-w-[1216px] max-h-[651px]">
+        <div id="slide1" className="carousel-item relative w-full">
+          {articles.map((item, index) => (
+            <div key={item.id} id={`slide${index + 1}`} className="carousel-item relative w-full">
+              
+              <Image src={item.social_image} className="w-full" width={300} height={300} />
+
+                <div className="absolute w-[598px] h-[252px] bg-white rounded-lg left-2 right-5 top-2/3 flex flex-col -translate-y-1/2 transform p-4 shadow-lg">
+                    <p className="badge bg-slate-200 text-[#4B6BFB] my-4">{item.tag_list[0]}</p>
+                    <Link href={item.path} className="text-[#181A2A] text-[36px] font-bold">{item.title}</Link>
+                    <div className="text-[#97989F]">{dayjs(articles.published_at).format("MMM/DD/YY")}</div>
+                    <div>{dayjs(item.published_at).fromNow()}</div>
+                </div>
+                <div>
+                  <a href={`#slide${index}`} className="btn btn-circle">
+                    ❮
+                  </a>
+                  <a href={`#slide${index + 2}`} className="btn btn-circle">
+                    ❯
+                  </a>
+                </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
     </div>
-  </div>
-  <div id="slide2" className="carousel-item relative w-full">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
-      className="w-full" />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide1" className="btn btn-circle">❮</a>
-      <a href="#slide3" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-  <div id="slide3" className="carousel-item relative w-full">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
-      className="w-full" />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide2" className="btn btn-circle">❮</a>
-      <a href="#slide4" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-  <div id="slide4" className="carousel-item relative w-full">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
-      className="w-full" />
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide3" className="btn btn-circle">❮</a>
-      <a href="#slide1" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-</div>
   );
 }
-    // <div key={article.id} className="container mx-auto">
-    //   <div className="carousel w-full">
-    //     <div className="carousel-item relative w-full">
-    //       <Image src={article.social_image} width={300} height={300} >
 
-    //         <div>
-    //           <div>Technology</div>
-    //           <div>Grid system better</div>
-    //           <div>Date</div>
-    //         </div>
-
-    //       </Image>
-
-    //     </div>
-
-    //   </div>
-    // </div>
+// {}
+//             <Image src={item.social_iamge} width={300} height={300}></Image>
+//             <div>
+//               
+//             </div>

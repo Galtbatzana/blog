@@ -9,12 +9,14 @@ export default function Blog() {
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(0);
   const [ended, setEnded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadMore();
   }, []);
 
   function loadMore() {
+    setLoading(true)
     fetch(
       `https://dev.to/api/articles?username=paul_freeman&page=${page+1}&per_page=${pageSize}`
     )
@@ -28,6 +30,7 @@ export default function Blog() {
         if (newArticles.length < pageSize) {
           setEnded(true);
         }
+        setLoading(false);
       });
   }
 
@@ -43,7 +46,10 @@ export default function Blog() {
 
         {!ended && (
           <div className="py-16 text-center" onClick={loadMore}>
-            <button className="btn btn-lg bg">Load more</button>
+            <button disabled={loading} className="btn btn-lg bg-accent">{
+              loading && <span className="loading loading-spinner"></span>}
+              Load more
+            </button>
           </div>
         )}
       </div>

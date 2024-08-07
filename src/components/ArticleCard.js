@@ -9,29 +9,31 @@ export function ArticleCard({ article }) {
   // console.log({article})
 
   return (
-    <div key={article.id} className="shadow-lg card bg-base-100">
-      <div className="flex gap-2">
-        <div key={article.id} className="card bg-base-100 shadow-lg">
-          <div className="card-body bg-slate-50 text-[#181A2A]">
-            <Image src={article.social_image} width={500} height={500} />
-            <Link href={article.path}>{article.title}</Link>
+    <div key={article.id} className="card card-side glass bg-white shadow-lg">
+      <div className="flex gap-2 card-body">
+        <div key={article.id} className="card bg-white shadow-lg">
+            <div className=" bg-slate-50">
+              <Image src={article.social_image} width={500} height={500} className="aspect-video object-cover bg-slate-500"/>
+            </div>
 
-            <div className="badge bg-slate-200 text-[#4B6BFB]">
+            <div className="badge text-white bg-[#4B6BFB] mt-4 ml-2">
               {article.tag_list[0]}
             </div>
 
-            <div className="flex gap-4 articles-center">
+            <Link href={article.path} className="text-[#181A2A] ml-2 mt-2">{article.title}</Link>
+
+            <div className="flex gap-4 articles-center m-2">
               <Image
                 src={article.user.profile_image}
                 width={50}
                 height={50}
-                className="rounded-full"
+                className=""
               />
-              <div className="">{article.user.name}</div>
-              <div>{dayjs(article.published_at).format("MMM/DD/YY")}</div>
-              <div>{dayjs(article.published_at).fromNow()}</div>
+              <div className="text-[#97989F]">{article.user.name}</div>
+              <div>
+                <div className="text-[#97989F]">{dayjs(article.published_at).format("MMM/DD/YY")}</div>
+              </div>
             </div>
-          </div>
         </div>
         
       </div>

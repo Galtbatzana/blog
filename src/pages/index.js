@@ -24,10 +24,9 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(1);
-  // const [ended, setEnded] = useState(false);
   
+
   // const [tagArticles, setTagArticles]= useState();
-  
 
   async function loadInitialArticles() {
     setLoading(true);
@@ -36,7 +35,7 @@ export default function Home() {
     const tagArticles = await response.json();
     setArticles(tagArticles);
     setPage(1);
-
+    
     setLoading(false);
   }
 
@@ -44,7 +43,7 @@ export default function Home() {
       setLoading(true);
 
       const nextPage = page + 1;
-      const response = await fetch(`https://dev.to/api/articles?username=paul_freeman&tag=${selectedCategory}&per_page=${nextPage}`);
+      const response = await fetch(`https://dev.to/api/articles?username=paul_freeman&tag=${selectedCategory}&per_page=3&page=${nextPage}`);
       const nextArticles = await response.json();
 
       setArticles([...articles, ...nextArticles])
@@ -57,27 +56,36 @@ export default function Home() {
     loadInitialArticles; 
     }, [selectedCategory]);
 
-
+    // console.log({articles})
       
   return (
     <main>
       
-        <Carousel />
+      <Carousel />
+
+
       
-    <div className="container mx-auto">
-
-      <div className="flex gap-3">
-        {tags.map((tag)=>(
-          <div key={tag.value} className={`cursor-pointer font-bold hover: ${selectedCategory === tag.value ? "text-orange-400" : ""}`} onClick={()=>setSelectedCategory(tag.value)}>{tag.name}</div>
-        ))}
-      </div>
-      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {articles.map((item) => (
-         <ArticleCard key={item.id} article={item} />
+      {/* <div className="container mx-auto">
+        <div className="grid md:grid-rows-4">
+          {articles.map((item)=>(
+            <Trending key={item.id} test={item}/>
           ))}
+          
+        </div>
+      </div> */}
+      
+      <div className="container mx-auto">
+        <div className="gap-3 hidden md:flex p-4">
+          {tags.map((tag)=>(
+            <div key={tag.value} className={`cursor-pointer font-bold hover: ${selectedCategory === tag.value ? "text-orange-400" : ""}`} onClick={()=>setSelectedCategory(tag.value)}>{tag.name}</div>
+          ))}
+        </div>
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+            {articles.map((item) => (
+          <ArticleCard key={item.id} article={item} />
+            ))}
+        </div>
       </div>
-
-    </div>
 
         {!ended && (
         <div className="py-16 text-center">
