@@ -37,7 +37,7 @@ export default function Blog() {
   return (
     <main>
      
-      <div className="container mx-auto">
+      <div className="container mx-auto bg-white">
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {articles.map((item) => (
          <ArticleCard key={item.id} article={item} />
@@ -46,7 +46,7 @@ export default function Blog() {
 
         {!ended && (
           <div className="py-16 text-center" onClick={loadMore}>
-            <button disabled={loading} className="btn btn-lg bg-accent">{
+            <button disabled={loading} className="btn btn-lg bg-[#4B6BFB] text-white">{
               loading && <span className="loading loading-spinner"></span>}
               Load more
             </button>

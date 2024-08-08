@@ -29,7 +29,7 @@ export function Tolgoi() {
 const navigations = [
   {
     name: "Home",
-    link: "/home",
+    link: "/",
   },
   {
     name: "Blog",

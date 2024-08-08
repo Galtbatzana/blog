@@ -75,7 +75,7 @@ export default function Home() {
         </div>
       </div> */}
 
-      <div className="container mx-auto">
+      <div className="container mx-auto bg-white">
         <div className="gap-3 hidden md:flex p-4">
           {tags.map((tag) => (
             <div
@@ -97,10 +97,10 @@ export default function Home() {
       </div>
 
       {!ended && (
-        <div className="py-16 text-center">
+        <div className="container mx-auto py-16 text-center bg-white">
           <button
             disabled={loading}
-            className="btn btn-lg bg-accent"
+            className="btn btn-lg bg-[#4B6BFB] text-white"
             onClick={loadNextArticles}
           >
             {loading && <span className="loading loading-spinner"></span>}

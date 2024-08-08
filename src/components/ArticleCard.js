@@ -9,7 +9,7 @@ export function ArticleCard({ article }) {
   // console.log({article})
 
   return (
-    <div key={article.id} className="card card-side glass bg-white shadow-lg">
+    <div key={article.id} className="card card-side glass bg-white shadow-lg border-2">
       <div className="flex gap-2 card-body">
         <div key={article.id} className="card bg-white shadow-lg">
             <div className=" bg-slate-50">
