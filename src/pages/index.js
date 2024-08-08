@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Footer } from "../components/footer";
@@ -9,11 +8,11 @@ import { Trending } from "@/components/Trending";
 import { SpecialNews } from "@/components/SpecialNews";
 import { ArticleCard } from "@/components/ArticleCard";
 import { Carousel } from "@/components/Carousel";
+import { Contact } from "./Contact";
 
 export default function Home() {
-  
   const tags = [
-    { value: "All", name: "All" },
+    { value: "", name: "All" },
     { value: "Frontend", name: "Front-end" },
     { value: "Javascript", name: "JavaScript" },
     { value: "Webdev", name: "Web Dev" },
@@ -24,47 +23,49 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(1);
-  
 
   // const [tagArticles, setTagArticles]= useState();
 
   async function loadInitialArticles() {
     setLoading(true);
 
-    const response = await fetch(`https://dev.to/api/articles?username=paul_freeman&tag=${selectedCategory}&per_page=3`);
+    const response = await fetch(
+      `https://dev.to/api/articles?username=paul_freeman&tag=${selectedCategory}&per_page=3`
+    );
     const tagArticles = await response.json();
     setArticles(tagArticles);
+
+    console.log("tagArticles", tagArticles);
     setPage(1);
-    
+
     setLoading(false);
   }
 
+  useEffect(() => {
+    loadInitialArticles();
+  }, [selectedCategory]);
+
   async function loadNextArticles() {
-      setLoading(true);
+    setLoading(true);
 
-      const nextPage = page + 1;
-      const response = await fetch(`https://dev.to/api/articles?username=paul_freeman&tag=${selectedCategory}&per_page=3&page=${nextPage}`);
-      const nextArticles = await response.json();
+    const nextPage = page + 1;
+    const response = await fetch(
+      `https://dev.to/api/articles?username=paul_freeman&tag=${selectedCategory}&per_page=3&page=${nextPage}`
+    );
+    const nextArticles = await response.json();
 
-      setArticles([...articles, ...nextArticles])
-      setPage(nextPage);
+    setArticles([...articles, ...nextArticles]);
+    setPage(nextPage);
 
-      setLoading(false);
-    }
+    setLoading(false);
+  }
 
-    useEffect(() => {
-    loadInitialArticles; 
-    }, [selectedCategory]);
+  // console.log({articles})
 
-    // console.log({articles})
-      
   return (
     <main>
-      
       <Carousel />
 
-
-      
       {/* <div className="container mx-auto">
         <div className="grid md:grid-rows-4">
           {articles.map((item)=>(
@@ -73,35 +74,46 @@ export default function Home() {
           
         </div>
       </div> */}
-      
+
       <div className="container mx-auto">
         <div className="gap-3 hidden md:flex p-4">
-          {tags.map((tag)=>(
-            <div key={tag.value} className={`cursor-pointer font-bold hover: ${selectedCategory === tag.value ? "text-orange-400" : ""}`} onClick={()=>setSelectedCategory(tag.value)}>{tag.name}</div>
+          {tags.map((tag) => (
+            <div
+              key={tag.value}
+              className={`cursor-pointer font-bold hover: ${
+                selectedCategory === tag.value ? "text-orange-400" : ""
+              }`}
+              onClick={() => setSelectedCategory(tag.value)}
+            >
+              {tag.name}
+            </div>
           ))}
         </div>
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {articles.map((item) => (
-          <ArticleCard key={item.id} article={item} />
-            ))}
+          {articles.map((item) => (
+            <ArticleCard key={item.id} article={item} />
+          ))}
         </div>
       </div>
 
-        {!ended && (
+      {!ended && (
         <div className="py-16 text-center">
-          <button disabled={loading} className="btn btn-lg bg-accent" onClick={loadNextArticles}>{loading && <span className="loading loading-spinner"></span>}
-          Load more 
+          <button
+            disabled={loading}
+            className="btn btn-lg bg-accent"
+            onClick={loadNextArticles}
+          >
+            {loading && <span className="loading loading-spinner"></span>}
+            Load more
           </button>
         </div>
-        
-      )} 
-    
+      )}
     </main>
   );
 }
 
-
-{/* <div className="container mx-auto text-black p-8 bg-white font-bold">
+{
+  /* <div className="container mx-auto text-black p-8 bg-white font-bold">
         <h2>Trendig</h2>
       </div>
       
@@ -130,4 +142,5 @@ export default function Home() {
           </button>
         </div>
         
-      )} */}
+      )} */
+}
