@@ -24,8 +24,6 @@ export default function Home() {
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(1);
 
-  // const [tagArticles, setTagArticles]= useState();
-
   async function loadInitialArticles() {
     setLoading(true);
 
