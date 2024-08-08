@@ -4,7 +4,7 @@ import { PiSunDimFill } from "react-icons/pi";
 
 export function Tolgoi() {
   return (
-    <div className="container mx-auto bg-white flex justify-between items-center">
+    <div className="container mx-auto bg-white flex justify-between items-center max-w-[1216px]">
       <div className="flex justify-around items-center py-9 mx-4">
         <img src="/images/Logo.png" className="h-[36px]" />
         <div className="hidden md:block pl-6">

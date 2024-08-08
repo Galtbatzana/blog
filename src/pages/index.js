@@ -61,7 +61,7 @@ export default function Home() {
   // console.log({articles})
 
   return (
-    <main>
+    <main className="container mx-auto">
       <Carousel />
 
       {/* <div className="container mx-auto">
@@ -73,7 +73,7 @@ export default function Home() {
         </div>
       </div> */}
 
-      <div className="container mx-auto bg-white">
+      <div className="container mx-auto bg-white max-w-[1216px]">
         <div className="gap-3 hidden md:flex p-4">
           {tags.map((tag) => (
             <div
@@ -95,7 +95,7 @@ export default function Home() {
       </div>
 
       {!ended && (
-        <div className="container mx-auto py-16 text-center bg-white">
+        <div className="container mx-auto py-16 text-center bg-white max-w-[1216px]">
           <button
             disabled={loading}
             className="btn btn-lg bg-[#4B6BFB] text-white"

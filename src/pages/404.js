@@ -1,7 +1,7 @@
 export default function page() {
 
   return (
-    <div className="container mx-auto bg-white">
+    <div className="container mx-auto bg-white max-w-[1216px]">
       <div className="flex container mx-auto max-w-screen-sm">
         <div className="border-r-[1px] p-6 text-[36px] text-black">
           404: 

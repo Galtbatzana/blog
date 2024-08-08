@@ -37,7 +37,7 @@ export default function Blog() {
   return (
     <main>
      
-      <div className="container mx-auto bg-white">
+      <div className="container mx-auto bg-white max-w-[1216px]">
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {articles.map((item) => (
          <ArticleCard key={item.id} article={item} />

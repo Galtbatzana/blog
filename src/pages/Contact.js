@@ -1,6 +1,6 @@
 export default function Contact() {
   return (
-    <div className="container mx-auto bg-white">
+    <div className="container mx-auto bg-white max-w-[1216px]">
       <div className="container mx-auto max-w-4xl">
         <div className="container max-w-screen-sm w-full pb-9 mx-auto">
           <div className="">
