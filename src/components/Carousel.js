@@ -21,11 +21,11 @@ export function Carousel() {
 
   return (
 
-    <div className="container mx-auto max-w-4xl">
+    <div className="container mx-auto max-w-4xl bg-white">
       <div className="carousel w-full bg-white">
         
           {articles.map((item, index) => (
-            <div key={item.id} id={`slide${index + 1}`} className="carousel-item relative w-full ml-5">
+            <div key={item.id} id={`slide${index + 1}`} className="carousel-item relative w-full ml-5 bg-white">
               
                 <Image src={item.social_image} alt="top" className="w-full rounded-3xl" width={500} height={500}/>
 

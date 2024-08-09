@@ -30,10 +30,12 @@ export default function Page () {
   if (!article) return <div>Loading...</div>
 
     return (
-        <div className="container mx-auto">
-            <div className="font-bold">{article.title}</div>
-            <div className="prose">{parse(article.body_html)}</div>
-            <div>{article.body_markdown}</div>
+        <div className="container mx-auto max-w-[1219px] bg-white">
+          <div className="container mx-auto bg-white max-w-3xl text-black p-4">
+              <div className="font-bold text-black">{article.title}</div>
+              <div className="prose text-black">{parse(article.body_html)}</div>
+              <div className="text-black">{article.body_markdown}</div>
+          </div>
         </div>
     );
 }
