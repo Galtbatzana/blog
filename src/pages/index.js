@@ -8,7 +8,7 @@ import { Trending } from "@/components/Trending";
 import { SpecialNews } from "@/components/SpecialNews";
 import { ArticleCard } from "@/components/ArticleCard";
 import { Carousel } from "@/components/Carousel";
-import { Contact } from "./contact";
+// import { Contact } from "./contact";
 
 export default function Home() {
   const tags = [
