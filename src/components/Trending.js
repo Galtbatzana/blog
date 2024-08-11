@@ -20,7 +20,7 @@ export function Trending({test}) {
 
             <p>{test.tag_list[0]}</p>
 
-            <div className="">
+            <div>
              {dayjs(test.published_at).format("MMM/DD/YY")}
             </div>
         </div>
