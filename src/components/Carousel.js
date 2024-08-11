@@ -21,8 +21,9 @@ export function Carousel() {
 
   return (
 
-    <div className="container mx-auto w-[1216px] bg-white">
-      <div className="carousel w-video bg-red-500">
+    <div className="hidden  container mx-auto w-[1216px]
+     bg-white md:flex">
+      <div className="mx-auto carousel w-[800px] h-[500px] bg-white">
         
           {articles.map((item, index) => (
             <div key={item.id} id={`slide${index + 1}`} className="carousel-item relative  w-full ml-5 bg-white">
@@ -43,6 +44,10 @@ export function Carousel() {
 
             </div>
           ))}
+
+
+
+        
       </div>
     </div>
   );
